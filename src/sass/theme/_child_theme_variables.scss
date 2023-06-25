@@ -12,6 +12,21 @@ $primary: $tchc-blue;
 // Fonts
 $font-family-sans-serif: Karla, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
 
+// Links
+$link-decoration:                   none !default;
+$link-hover-decoration:             underline !default;
+
+// Navbar
+$nav-link-padding-y:                1.15rem !default;
+$navbar-nav-link-padding-x:         1.15rem !default;
+$navbar-dark-color:                 $tchc-white !default;
+$navbar-dark-hover-color:           $tchc-white !default;
+$navbar-dark-active-color:          $tchc-white !default;
+$navbar-dark-toggler-border-color:  transparent !default;
+$nav-link-transition:               color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out !default;
+$nav-link-font-size:                1.2rem !default;
+$nav-link-font-weight:              700 !default;
+
 // Typography
 $headings-font-family:        Judson, Times, serif !default;
 $headings-font-weight:        700 !default;

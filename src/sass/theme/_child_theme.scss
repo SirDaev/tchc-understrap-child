@@ -18,3 +18,34 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Karla';
+  src: url('../fonts/Karla/static/Karla-Bold.ttf');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Karla';
+  src: url('../fonts/Karla/static/Karla-ExtraBold.ttf');
+  font-weight: 900;
+  font-style: normal;
+}
+
+header {
+
+  .nav-link {
+    text-transform: uppercase;
+  }
+
+  .navbar-brand {
+
+    &.custom-logo-link {
+
+      img {
+        width: 135px;
+      }
+    }
+  }
+}
