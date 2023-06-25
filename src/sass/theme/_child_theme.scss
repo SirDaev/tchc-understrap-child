@@ -54,3 +54,14 @@ header {
   color: $tchc-white;
   background-color: $tchc-gray-5;
 }
+
+p.intro-underline:after {
+  content: '';
+  position: absolute;
+  width: 57%;
+  height: 2px;
+  background: $tchc-orange;
+  bottom: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+}

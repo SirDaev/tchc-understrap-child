@@ -1,6 +1,7 @@
 // TCHC Colors
 $tchc-blue: #006284;
 $tchc-gray-5: #333130;
+$tchc-orange: #A54700;
 $tchc-white: #f5f5f5;
 
 // Bootstrap Overrides
@@ -30,3 +31,4 @@ $nav-link-font-weight:              700 !default;
 // Typography
 $headings-font-family:        Judson, Times, serif !default;
 $headings-font-weight:        700 !default;
+$h1-font-size:                $font-size-base * 2.1 !default;
