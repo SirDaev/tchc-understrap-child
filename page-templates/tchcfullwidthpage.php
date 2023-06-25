@@ -18,7 +18,11 @@ $container = get_theme_mod( 'understrap_container_type' );
 	<div class="<?php echo esc_attr( $container ); ?>" id="content">
 		<div class="row">
 			<div class="col-md-12 content-area" id="primary">
+
 				<?php
+
+				if (function_exists('the_breadcrumb')) the_breadcrumb();
+				
 				while ( have_posts() ) {
 					the_post();
 					get_template_part( 'loop-templates/content', 'page' );
@@ -29,6 +33,7 @@ $container = get_theme_mod( 'understrap_container_type' );
 					}
 				}
 				?>
+				
 			</div>
 		</div>
 	</div>
