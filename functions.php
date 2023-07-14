@@ -90,44 +90,38 @@ add_action( 'customize_controls_enqueue_scripts', 'understrap_child_customize_co
 function the_breadcrumb()
 {
     $showOnHome = 0; // 1 - show breadcrumbs on the homepage, 0 - don't show
-    $delimiter = '&sol;'; // delimiter between crumbs
+    $delimiter = ''; // delimiter between crumbs
     $home = 'Home'; // text for the 'Home' link
     $showCurrent = 1; // 1 - show current post/page title in breadcrumbs, 0 - don't show
-    $before = '<span class="current">'; // tag before the current crumb
-    $after = '</span>'; // tag after the current crumb
 
     global $post;
     $homeLink = get_bloginfo('url');
     if (is_home() || is_front_page()) {
         if ($showOnHome == 1) {
-            echo '<div class="breadcrumbs"><a href="' . $homeLink . '">' . $home . '</a></div>';
+            echo '<nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="' . $homeLink . '">' . $home . '</a></li></ol></nav>';
         }
     } else {
-        echo '<div class="breadcrumbs"><a href="' . $homeLink . '">' . $home . '</a> ' . $delimiter . ' ';
+        echo '<nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="' . $homeLink . '">' . $home . '</a></li>';
         if (is_category()) {
-            $thisCat = get_category(get_query_var('cat'), false);
-            if ($thisCat->parent != 0) {
-                echo get_category_parents($thisCat->parent, true, ' ' . $delimiter . ' ');
-            }
-            echo $before . 'Archive by category "' . single_cat_title('', false) . '"' . $after;
+            echo '<li class="breadcrumb-item active" aria-current="page">' . 'Archive by category "' . single_cat_title('', false) . '"' . '</li>';
         } elseif (is_search()) {
-            echo $before . 'Search results for "' . get_search_query() . '"' . $after;
+            echo '<li class="breadcrumb-item active" aria-current="page">' . 'Search results for "' . get_search_query() . '"' . '</li>';
         } elseif (is_day()) {
-            echo '<a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a> ' . $delimiter . ' ';
-            echo '<a href="' . get_month_link(get_the_time('Y'), get_the_time('m')) . '">' . get_the_time('F') . '</a> ' . $delimiter . ' ';
-            echo $before . get_the_time('d') . $after;
+            echo '<li class="breadcrumb-item"><a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a></li>';
+            echo '<li class="breadcrumb-item"><a href="' . get_month_link(get_the_time('Y'), get_the_time('m')) . '">' . get_the_time('F') . '</a></li>';
+            echo '<li class="breadcrumb-item active" aria-current="page">' . get_the_time('d') . '</li>';
         } elseif (is_month()) {
-            echo '<a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a> ' . $delimiter . ' ';
-            echo $before . get_the_time('F') . $after;
+            echo '<li class="breadcrumb-item"><a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a></li>';
+            echo '<li class="breadcrumb-item active" aria-current="page">' . get_the_time('F') . '</li>';
         } elseif (is_year()) {
-            echo $before . get_the_time('Y') . $after;
+            echo '<li class="breadcrumb-item active" aria-current="page">' . get_the_time('Y') . '</li>';
         } elseif (is_single() && !is_attachment()) {
             if (get_post_type() != 'post') {
                 $post_type = get_post_type_object(get_post_type());
                 $slug = $post_type->rewrite;
-                echo '<a href="' . $homeLink . '/' . $slug['slug'] . '/">' . $post_type->labels->singular_name . '</a>';
+                echo '<li class="breadcrumb-item"><a href="' . $homeLink . '/' . $slug['slug'] . '/">' . $post_type->labels->singular_name . '</a></li>';
                 if ($showCurrent == 1) {
-                    echo ' ' . $delimiter . ' ' . $before . get_the_title() . $after;
+                    echo '<li class="breadcrumb-item active" aria-current="page">' . get_the_title() . '</li>';
                 }
             } else {
                 $cat = get_the_category();
@@ -138,31 +132,31 @@ function the_breadcrumb()
                 }
                 echo $cats;
                 if ($showCurrent == 1) {
-                    echo $before . get_the_title() . $after;
+                    echo '<li class="breadcrumb-item active" aria-current="page">' . get_the_title() . '</li>';
                 }
             }
         } elseif (!is_single() && !is_page() && get_post_type() != 'post' && !is_404()) {
             $post_type = get_post_type_object(get_post_type());
-            echo $before . $post_type->labels->singular_name . $after;
+            echo '<li class="breadcrumb-item active" aria-current="page">' . $post_type->labels->singular_name . '</li>';
         } elseif (is_attachment()) {
             $parent = get_post($post->post_parent);
             $cat = get_the_category($parent->ID);
             $cat = $cat[0];
             echo get_category_parents($cat, true, ' ' . $delimiter . ' ');
-            echo '<a href="' . get_permalink($parent) . '">' . $parent->post_title . '</a>';
+            echo '<li class="breadcrumb-item"><a href="' . get_permalink($parent) . '">' . $parent->post_title . '</a></li>';
             if ($showCurrent == 1) {
-                echo ' ' . $delimiter . ' ' . $before . get_the_title() . $after;
+                echo '<li class="breadcrumb-item active" aria-current="page">' . get_the_title() . '</li>';
             }
         } elseif (is_page() && !$post->post_parent) {
             if ($showCurrent == 1) {
-                echo $before . get_the_title() . $after;
+                echo '<li class="breadcrumb-item active" aria-current="page">' . get_the_title() . '</li>';
             }
         } elseif (is_page() && $post->post_parent) {
             $parent_id  = $post->post_parent;
             $breadcrumbs = array();
             while ($parent_id) {
                 $page = get_page($parent_id);
-                $breadcrumbs[] = '<a href="' . get_permalink($page->ID) . '">' . get_the_title($page->ID) . '</a>';
+                $breadcrumbs[] = '<li class="breadcrumb-item"><a href="' . get_permalink($page->ID) . '">' . get_the_title($page->ID) . '</a></li>';
                 $parent_id  = $page->post_parent;
             }
             $breadcrumbs = array_reverse($breadcrumbs);
@@ -173,16 +167,16 @@ function the_breadcrumb()
                 }
             }
             if ($showCurrent == 1) {
-                echo ' ' . $delimiter . ' ' . $before . get_the_title() . $after;
+                echo '<li class="breadcrumb-item active" aria-current="page">' . get_the_title() . '</li>';
             }
         } elseif (is_tag()) {
-            echo $before . 'Posts tagged "' . single_tag_title('', false) . '"' . $after;
+            echo '<li class="breadcrumb-item active" aria-current="page">' . 'Posts tagged "' . single_tag_title('', false) . '"' . '</li>';
         } elseif (is_author()) {
             global $author;
             $userdata = get_userdata($author);
-            echo $before . 'Articles posted by ' . $userdata->display_name . $after;
+            echo '<li class="breadcrumb-item active" aria-current="page">' . 'Articles posted by ' . $userdata->display_name . '</li>';
         } elseif (is_404()) {
-            echo $before . 'Error 404' . $after;
+            echo '<li class="breadcrumb-item active" aria-current="page">' . 'Error 404' . '</li>';
         }
         if (get_query_var('paged')) {
             if (is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author()) {
@@ -193,6 +187,6 @@ function the_breadcrumb()
                 echo ')';
             }
         }
-        echo '</div>';
+        echo '</ol></nav>';
     }
 }
