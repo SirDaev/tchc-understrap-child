@@ -198,13 +198,13 @@ function register_my_menu() {
 
 add_action( 'init', 'register_my_menu' );
 
-// Register Footer Widget Location
-function register_custom_widget_area() {
+// Register Footer Widget Locations
+function register_custom_widget_area_footer_left() {
     register_sidebar(
     array(
-    'id' => 'footer-widget',
-    'name' => esc_html__( 'Footer widget', 'understrap' ),
-    'description' => esc_html__( 'A widget area for the footer', 'understrap' ),
+    'id' => 'footer-left-widget',
+    'name' => esc_html__( 'Footer left widget', 'understrap' ),
+    'description' => esc_html__( 'A widget area for the left side of the footer', 'understrap' ),
     'before_widget' => '<div id="%1$s" class="widget %2$s">',
     'after_widget' => '</div>',
     'before_title' => '<div class="widget-title-holder"><h3 class="widget-title">',
@@ -212,4 +212,19 @@ function register_custom_widget_area() {
     )
     );
     }
-    add_action( 'widgets_init', 'register_custom_widget_area' );
+    add_action( 'widgets_init', 'register_custom_widget_area_footer_left' );
+
+function register_custom_widget_area_footer_right() {
+    register_sidebar(
+    array(
+    'id' => 'footer-right-widget',
+    'name' => esc_html__( 'Footer right widget', 'understrap' ),
+    'description' => esc_html__( 'A widget area for the right side of the footer', 'understrap' ),
+    'before_widget' => '<div id="%1$s" class="widget %2$s">',
+    'after_widget' => '</div>',
+    'before_title' => '<div class="widget-title-holder"><h3 class="widget-title">',
+    'after_title' => '</h3></div>'
+    )
+    );
+    }
+    add_action( 'widgets_init', 'register_custom_widget_area_footer_right' );
