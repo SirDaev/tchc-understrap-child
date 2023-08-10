@@ -1,5 +1,6 @@
 // TCHC Colors
 $tchc-blue: #006284;
+$tchc-gray-4: #686462;
 $tchc-gray-5: #333130;
 $tchc-orange: #A54700;
 $tchc-white: #f5f5f5;
@@ -32,3 +33,7 @@ $nav-link-font-weight:              700 !default;
 $headings-font-family:        Judson, Times, serif !default;
 $headings-font-weight:        700 !default;
 $h1-font-size:                $font-size-base * 2.1 !default;
+
+// Breadcrumbs
+$breadcrumb-divider-color:          $tchc-gray-4 !default;
+$breadcrumb-active-color:           $tchc-gray-4 !default;
