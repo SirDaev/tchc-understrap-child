@@ -15159,6 +15159,12 @@ header .navbar-brand.custom-logo-link img {
   color: #f5f5f5;
   background-color: #333130;
 }
+.site-footer .nav-link {
+  font-size: 1.3rem;
+  line-height: 1;
+  padding: 1rem 0;
+  color: #f5f5f5;
+}
 
 p.intro-underline:after {
   content: "";

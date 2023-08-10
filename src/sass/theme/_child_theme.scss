@@ -53,6 +53,13 @@ header {
 .site-footer {
   color: $tchc-white;
   background-color: $tchc-gray-5;
+
+  .nav-link {
+    font-size: 1.3rem;
+    line-height: 1;
+    padding: 1rem 0;
+    color: $tchc-white;
+  }
 }
 
 p.intro-underline:after {

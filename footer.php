@@ -18,8 +18,42 @@ $container = get_theme_mod( 'understrap_container_type' );
 <footer class="site-footer">
 	<div class="<?php echo esc_attr( $container ); ?>">
 		<div class="row">
+			<div class="col-md-6">
+				logo and stuff
+			</div>
+			<div class="col-md-6">
+				<nav id="footer-nav" class="navbar" aria-labelledby="footer-nav-label">
+					<h2 id="footer-nav-label" class="screen-reader-text">
+						<?php esc_html_e( 'Footer Navigation', 'tchc-understrap-child' ); ?>
+					</h2>
+					<div class="<?php echo esc_attr( $container ); ?>">
+						<!-- The WordPress Menu goes here -->
+						<?php
+						wp_nav_menu(
+							array(
+								'theme_location'  => 'footer-menu',
+								'container_class' => '',
+								'container_id'    => '',
+								'menu_class'      => 'navbar-nav',
+								'fallback_cb'     => 'false',
+								'menu_id'         => 'footer-menu',
+								'depth'           => 1,
+								'walker'          => new Understrap_WP_Bootstrap_Navwalker(),
+							)
+						);
+						?>
+					</div><!-- .container(-fluid) -->
+				</nav><!-- #footer-nav -->
+				<?php if ( is_active_sidebar( 'footer-widget' ) ) : ?>
+					<div id="footer-widget" class="footer-widget">
+						<?php dynamic_sidebar( 'footer-widget' ); ?>
+					</div>
+				<?php endif; ?>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-md-12">
-				<div class="site-info">
+				<div class="site-info text-center my-3">
 					<?php understrap_site_info(); ?>
 				</div>
 			</div>
